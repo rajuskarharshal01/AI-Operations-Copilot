@@ -1,20 +1,12 @@
 from fastapi import FastAPI
 
+import app
+from app.api.routes import router
+from app.core.config import settings
+
 app = FastAPI(
-    title="AI Operations Copilot",
-    version="1.0.0"
+    title=settings.app_name,
+    version=settings.version
 )
 
-
-@app.get("/")
-def root():
-    return {
-        "message": "AI Operations Copilot API is running"
-    }
-
-
-@app.get("/health")
-def health_check():
-    return {
-        "status": "healthy"
-    }
+app.include_router(router)
