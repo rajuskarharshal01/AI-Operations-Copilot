@@ -1,4 +1,5 @@
 from fastapi import APIRouter, UploadFile, File
+from app.services.pdf_service import extract_pdf_text
 import os
 
 router = APIRouter(prefix="/documents", tags=["documents"])
@@ -16,7 +17,11 @@ async def upload_document(file: UploadFile = File(...)):
     with open(file_path, "wb") as buffer:
         buffer.write(await file.read())
 
+    pdf_data = extract_pdf_text(file_path)
+
     return {
         "filename": file.filename,
-        "Status": "File uploaded successfully" 
+        "pages": pdf_data["pages"],
+        "characters": pdf_data["characters"],
+        "status": "processed"
     }
