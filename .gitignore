@@ -32,3 +32,19 @@ dist/
 .env.local
 .env.development
 .env.production
+venv/
+venv311/
+__pycache__/
+*.pyc
+
+
+# Uploaded documents
+uploads/
+
+# Virtual environments
+venv/
+venv311/
+
+# Python cache
+__pycache__/
+*.pyc
