@@ -36,3 +36,13 @@ Built using Python, FastAPI, LangGraph, OpenAI APIs, Qdrant Vector Database, Pos
 ## Project Status
 
 🚧 Currently under active development following an incremental, production-oriented engineering approach.
+
+
+## Current Features
+
+- PDF Upload API
+- PDF Text Extraction
+- Text Chunking
+- Embedding Generation using Sentence Transformers
+- FastAPI Backend
+- Swagger/OpenAPI Documentation
