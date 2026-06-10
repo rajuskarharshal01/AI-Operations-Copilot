@@ -1,6 +1,7 @@
 from fastapi import APIRouter, UploadFile, File
 from app.services.pdf_service import extract_pdf_text
 from app.services.chunking_service import chunk_text
+from app.services.embedding_service import generate_embeddings
 import os
 
 router = APIRouter(prefix="/documents", tags=["documents"])
@@ -20,11 +21,13 @@ async def upload_document(file: UploadFile = File(...)):
 
     pdf_data = extract_pdf_text(file_path)
     chunks = chunk_text(pdf_data["text"])
+    embeddings = generate_embeddings(chunks)
 
     return {
-        "filename": file.filename,
-        "pages": pdf_data["pages"],
-        "characters": pdf_data["characters"],
-        "chunks": len(chunks),
-        "status": "processed"
+         "filename": file.filename,
+          "pages": pdf_data["pages"],
+          "characters": pdf_data["characters"],
+          "chunks": len(chunks),
+          "embeddings": len(embeddings),
+          "status": "processed"
     }
