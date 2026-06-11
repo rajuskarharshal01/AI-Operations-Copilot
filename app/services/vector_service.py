@@ -42,3 +42,19 @@ def store_embeddings(chunks, embeddings):
         points=points
     
     )
+
+def search_embeddings(
+    query_embedding,
+    limit: int = 3
+):
+
+    results = client.query_points(
+        collection_name=COLLECTION_NAME,
+        query=query_embedding,
+        limit=limit
+    )
+
+    return [
+        point.payload["text"]
+        for point in results.points
+    ]

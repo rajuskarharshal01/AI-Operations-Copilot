@@ -9,3 +9,11 @@ def generate_embeddings(chunks):
 
     return embeddings.tolist()
 
+
+def generate_query_embedding(
+    query: str
+):
+
+    embedding = model.encode(query)
+
+    return embedding.tolist()
