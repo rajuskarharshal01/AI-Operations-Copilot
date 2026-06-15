@@ -37,3 +37,39 @@ def get_system_metrics():
         },
         "issues": issues
     }
+
+
+def get_top_processes(limit: int = 5):
+
+    processes = []
+
+    for proc in psutil.process_iter(
+        ["pid", "name", "memory_info"]
+    ):
+
+        try:
+
+            memory_mb = (
+                proc.info["memory_info"].rss
+                / 1024 / 1024
+            )
+
+            processes.append({
+                "pid": proc.info["pid"],
+                "name": proc.info["name"],
+                "memory_mb": round(memory_mb, 2)
+            })
+
+        except (
+            psutil.NoSuchProcess,
+            psutil.AccessDenied,
+            psutil.ZombieProcess
+        ):
+            pass
+
+    processes.sort(
+        key=lambda x: x["memory_mb"],
+        reverse=True
+    )
+
+    return processes[:limit]
