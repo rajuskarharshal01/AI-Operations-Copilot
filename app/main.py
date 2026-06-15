@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.api.document_routes import router as document_router
 from app.api.search_routes import (router as search_router)
+from app.api.monitoring_routes import (router as monitoring_router)
 
 import app
 from app.api.routes import router
@@ -14,3 +15,4 @@ app = FastAPI(
 app.include_router(router)
 app.include_router(document_router)
 app.include_router(search_router)
+app.include_router(monitoring_router)
