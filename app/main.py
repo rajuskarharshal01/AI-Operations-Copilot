@@ -4,6 +4,7 @@ from app.api.search_routes import (router as search_router)
 from app.api.monitoring_routes import (router as monitoring_router)
 from app.api.incident_routes import (router as incident_router)
 from app.api.report_routes import (router as report_router)
+from app.api.prometheus_routes import (router as prometheus_router)
 
 
 
@@ -23,3 +24,4 @@ app.include_router(search_router)
 app.include_router(monitoring_router)
 app.include_router(incident_router)
 app.include_router(report_router)
+app.include_router(prometheus_router)
