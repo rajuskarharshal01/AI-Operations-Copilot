@@ -1,14 +1,7 @@
-from app.services.prometheus_service import (
-    get_system_metrics
-)
-
-from app.services.monitoring_service import (
-    get_top_processes
-)
-
-from app.services.incident_service import (
-    analyze_system_health
-)
+from app.services.prometheus_service import (get_system_metrics)
+from app.services.monitoring_service import (get_top_processes)
+from app.services.incident_service import (analyze_system_health)
+from app.services.llm_service import (generate_incident_explanation)
 
 
 def generate_copilot_analysis():
@@ -30,19 +23,18 @@ def generate_copilot_analysis():
         processes
     )
 
-    return {
-        "overall_status":
-            metrics["status"],
+    explanation = generate_incident_explanation(
+        metrics["cpu_percent"],
+        metrics["memory_percent"],
+        processes[0]["name"],
+        analysis
+    )
 
-        "cpu_percent":
-            metrics["cpu_percent"],
-
-        "memory_percent":
-            metrics["memory_percent"],
-
-        "top_process":
-            processes[0]["name"],
-
-        "analysis":
-            analysis
+    return{
+        "overall_status":metrics["status"],
+        "cpu_percent":metrics["cpu_percent"],
+        "memory_percent":metrics["memory_percent"],
+        "top_process":processes[0]["name"],
+        "analysis":analysis,
+        "llm_explanation":explanation
     }
