@@ -2,7 +2,7 @@ from fastapi import APIRouter
 
 from app.services.monitoring_service import (
     get_system_metrics,
-    get_top_processes
+    get_top_memory_processes
 )
 
 from app.services.incident_service import (
@@ -20,7 +20,7 @@ async def analyze():
 
     metrics = get_system_metrics()
 
-    processes = get_top_processes()
+    processes = get_top_memory_processes()
 
     recommendations = analyze_system_health(
         metrics,

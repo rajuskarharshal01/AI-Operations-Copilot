@@ -1,5 +1,5 @@
 from app.services.prometheus_service import (get_system_metrics)
-from app.services.monitoring_service import (get_top_processes)
+from app.services.monitoring_service import ( get_top_memory_processes)
 from app.services.incident_service import (analyze_system_health)
 from app.services.llm_service import (generate_incident_explanation)
 
@@ -8,7 +8,7 @@ def generate_copilot_analysis():
 
     metrics = get_system_metrics()
 
-    processes = get_top_processes()
+    processes =  get_top_memory_processes()
 
     analysis = analyze_system_health(
         {

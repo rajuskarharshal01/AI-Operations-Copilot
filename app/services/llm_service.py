@@ -1,34 +1,36 @@
 from ollama import chat
+import ollama
 
 
-def generate_incident_explanation(
-    cpu_percent,
-    memory_percent,
-    top_process,
-    analysis
-):
+def generate_incident_explanation(cpu, memory, top_process, analysis):
 
     prompt = f"""
-    You are an AI Operations Engineer.
+You are an experienced Site Reliability Engineer.
 
-    CPU Usage: {cpu_percent}%
-    Memory Usage: {memory_percent}%
+Current Metrics
 
-    Top Process:
-    {top_process}
+CPU Usage: {cpu}%
+Memory Usage: {memory}%
 
-    Findings:
-    {analysis}
+Top Process:
+{top_process}
 
-    Generate:
-    1. Incident Summary
-    2. Likely Cause
-    3. Recommended Action
+Analysis:
+{analysis}
 
-    Keep the response concise.
-    """
+Provide:
 
-    response = chat(
+1. Incident Summary
+2. Likely Cause
+3. Recommended Action
+"""
+
+    return generate_llm_response(prompt)
+
+
+def generate_llm_response(prompt: str):
+
+    response = ollama.chat(
         model="llama3",
         messages=[
             {

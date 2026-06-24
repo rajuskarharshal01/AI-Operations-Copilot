@@ -1,8 +1,11 @@
 from qdrant_client import QdrantClient
 from qdrant_client.models import Distance, VectorParams, PointStruct
+from sentence_transformers import SentenceTransformer
 
 
-client = QdrantClient(":memory:")
+
+client = QdrantClient(path="./qdrant_data")
+model = SentenceTransformer("all-MiniLM-L6-v2")
 
 COLLECTION_NAME = "documents"
 
@@ -47,6 +50,7 @@ def search_embeddings(
     query_embedding,
     limit: int = 3
 ):
+    create_collection()
 
     results = client.query_points(
         collection_name=COLLECTION_NAME,
@@ -58,3 +62,14 @@ def search_embeddings(
         point.payload["text"]
         for point in results.points
     ]
+
+
+def retrieve_context(query: str):
+
+    query_embedding = model.encode(query).tolist()
+
+    results = search_embeddings(query_embedding)
+
+    context = "\n\n".join(results)
+
+    return context

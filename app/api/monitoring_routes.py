@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.services.monitoring_service import (get_system_metrics, get_top_processes)
+from app.services.monitoring_service import (get_system_metrics, get_top_memory_processes)
 
 
 router = APIRouter(
@@ -18,5 +18,5 @@ async def top_processes():
 
     return {
         "top_memory_processes":
-            get_top_processes()
+            get_top_memory_processes()
     }

@@ -39,7 +39,7 @@ def get_system_metrics():
     }
 
 
-def get_top_processes(limit: int = 5):
+def get_top_memory_processes(limit: int = 5):
 
     processes = []
 
