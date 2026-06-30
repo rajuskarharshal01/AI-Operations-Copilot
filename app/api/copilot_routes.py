@@ -21,9 +21,4 @@ async def analyze():
 @router.post("/chat")
 async def chat(request: ChatRequest):
 
-    answer = chat_with_copilot(request.question)
-
-    return {
-        "question": request.question,
-        "answer": answer
-    }
+    return chat_with_copilot(request.question)

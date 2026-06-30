@@ -84,3 +84,23 @@ def delete_history():
     finally:
 
         db.close()
+
+
+def get_recent_incidents(limit: int = 5):
+
+    db = SessionLocal()
+
+    try:
+
+        incidents = (
+            db.query(Incident)
+            .order_by(Incident.timestamp.desc())
+            .limit(limit)
+            .all()
+        )
+
+        return incidents
+
+    finally:
+
+        db.close()
